@@ -1,0 +1,27 @@
+- route:
+    id: route-3749
+    from:
+      id: from-3019
+      uri: platform-http
+      parameters:
+        path: /hello
+      steps:
+        - setBody:
+            simple:
+              expression: HI
+        - log: ${body}
+- route:
+    id: route-1749
+    from:
+      id: from-2641
+      uri: platform-http
+      parameters:
+        path: /bonjour
+      steps:
+        - setBody:
+            id: setBody-1433
+            simple:
+              expression: salut
+        - log:
+            id: log-2696
+            message: ${body}
