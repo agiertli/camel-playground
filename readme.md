@@ -1,31 +1,10 @@
-# How to build and run a Camel application
-
-This project was generated using [Camel Jbang](https://camel.apache.org/manual/camel-jbang.html). Please, refer the the online documentation for learning more about how to configure the export of your Camel application.
-
-This is a brief guide explaining how to build, "containerize" and run your Camel application.
-
-## Build the Maven project
+## Reproducer
 
 ```bash
-./mvnw clean package
+mvn quarkus:dev
 ```
 
-The application could now immediately run:
-
-```bash
-java -jar target/quarkus-app/quarkus-run.jar
+Result:
 ```
-
-## Create a Docker container
-
-You can create a container image directly from the `src/main/docker` resources. Here you have a precompiled base configuration which can be enhanced with any further required configuration.
-
-```bash
-docker build -f src/main/docker/Dockerfile -t vodafone:1 .
-```
-
-Once the application is published, you can run it directly from the container:
-
-```bash
-docker run -it vodafone:1
+2025-05-28 23:13:25,052 WARN  [org.apa.cam.com.tim.TimerConsumer] (Camel (camel-1) thread #3 - timer://yaml) Error processing exchange. Exchange[DEF3E308C1DA1A2-0000000000000000]. Caused by: [org.apache.camel.http.base.HttpOperationFailedException - HTTP operation failed invoking http://localhost:8080/account with statusCode: 404]: org.apache.camel.http.base.HttpOperationFailedException: HTTP operation failed invoking http://localhost:8080/account with statusCode: 404
 ```
