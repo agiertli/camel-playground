@@ -1,0 +1,35 @@
+- beans:
+    - name: fakerInstance
+      type: com.github.javafaker.Faker
+- route:
+    id: account
+    description: Get Account
+    from:
+      id: from-1301
+      uri: platform-http
+      parameters:
+        path: /account
+      steps:
+        - bean:
+            method: address()
+            ref: fakerInstance
+        - setBody:
+            simple:
+              expression: >
+                <kaoto:Account
+                AccountId="${bean:fakerInstance.idNumber().valid()}"
+                xmlns:kaoto="org.example.Account">
+                    <Name>${bean:fakerInstance.name().fullName()}</Name>
+                    <Address>${body.streetName()}, ${body.buildingNumber()}</Address>
+                    <City>${body.city()}</City>
+                    <Country>${body.country()}</Country>
+                </kaoto:Account>
+              resultType: org.w3c.dom.Document
+        - to:
+            uri: log
+            parameters:
+              loggerName: InfoLogger
+              multiline: true
+              showBodyType: true
+              style: Fixed
+            disabled: false
